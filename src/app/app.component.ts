@@ -9,6 +9,7 @@ import { ConnectService } from './services/connect.service';
 export class AppComponent{
   @ViewChild('input') input: ElementRef | any
   @ViewChild('chat') chat: ElementRef | any
+
   constructor(protected connectService: ConnectService){
     connectService.socket.on("response", (input:string) => {
       let chatBox = document.createElement("p");
@@ -16,9 +17,6 @@ export class AppComponent{
       this.chat.nativeElement.append(chatBox);
     })
   }
-
-  
- 
 }
 
 
