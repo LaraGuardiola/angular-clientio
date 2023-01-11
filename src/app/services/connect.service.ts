@@ -13,7 +13,8 @@ export class ConnectService {
     })
    }
 
-   write(chatElem: HTMLDivElement, inputElem: HTMLInputElement, input: string){
+   write(event: Event, chatElem: HTMLDivElement, inputElem: HTMLInputElement, input: string){
+    event.preventDefault()
     console.log(input)
     this.socket.emit("message", input)
     inputElem.value =""
