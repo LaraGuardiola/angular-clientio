@@ -1,0 +1,3 @@
+<input #input (focus)="connectService.onWriting($any($event.target).value.length)" type="text" name="" id="messenger">
+<button (click)="connectService.write(chat,input,input.value)">SEND</button>
+<div #chat class="chat"></div>
