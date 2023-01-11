@@ -5,7 +5,7 @@ import { io } from 'socket.io-client';
   providedIn: 'root'
 })
 export class ConnectService {
-  socket = io('http://localhost:3000');
+  socket = io('https://nodejs-socketio-production.up.railway.app/');
   
   constructor() {
     this.socket.on("connect", () => {
