@@ -7,16 +7,7 @@ import { ConnectService } from './services/connect.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent{
-  @ViewChild('input') input: ElementRef | any
-  @ViewChild('chat') chat: ElementRef | any
-
-  constructor(protected connectService: ConnectService){
-    connectService.socket.on("response", (input:string) => {
-      let chatBox = document.createElement("p");
-      chatBox.innerText = input;
-      this.chat.nativeElement.append(chatBox);
-    })
-  }
+  
 }
 
 
