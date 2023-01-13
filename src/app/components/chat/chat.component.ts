@@ -7,7 +7,6 @@ import { ConnectService } from 'src/app/services/connect.service';
   styleUrls: ['./chat.component.css']
 })
 export class ChatComponent {
-  @ViewChild('input') input: ElementRef | any
   @ViewChild('chat') chat: ElementRef | any
 
   constructor(protected connectService: ConnectService){

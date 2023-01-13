@@ -1,7 +1,6 @@
 <div class="room">
     <div #chat class="chat"></div>
     <div class="chat-div">
-        <!-- <input class="chat" #input (focus)="connectService.onWriting($any($event.target).value.length)" type="text" name="" id="messenger"> -->
         <span
             #input
             (keydown)="connectService.write($event,chat,input,input.innerText)" 

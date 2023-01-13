@@ -6,8 +6,7 @@ import { io } from 'socket.io-client';
 })
 export class ConnectService {
 
-
-  socket = io('https://nodejs-socketio-production.up.railway.app/');
+  socket = io('http://localhost:3000');
   
   constructor() {
     this.socket.on("connect", () => {
@@ -23,10 +22,6 @@ export class ConnectService {
       inputElem.innerText =""
       this.appendText(chatElem, input)
     }
-  }
-
-  onFocus(event: Event) {
-    event.preventDefault();
   }
 
   onWriting(length: number){
