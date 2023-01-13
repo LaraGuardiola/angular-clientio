@@ -8,6 +8,7 @@ import { ConnectService } from 'src/app/services/connect.service';
 })
 export class ChatComponent {
   @ViewChild('chat') chat: ElementRef | any
+  placeholderValue: string = "Write your message here..."
 
   constructor(protected connectService: ConnectService){
     connectService.socket.on("response", (input:string) => {
