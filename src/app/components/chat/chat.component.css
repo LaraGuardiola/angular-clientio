@@ -1,4 +1,26 @@
-.input-chat{
+.room{
+    height: 100vh;
+    width: 100%;
+}
+
+.chat-div{
+    display: flex;
+    justify-content: flex-end;
     position: fixed;
     bottom: 0;
+    background-color: #202C33;
+    width: 100%;
+    min-height: 70px; 
+    max-height: 20%;
+    padding: 10px; 
+}
+
+.chat-input{
+    border-radius: 6px;
+    display: block;
+    padding: 20px;
+    background-color: #2a3942;
+    color: white;
+    width: 80%;
+    overflow-wrap: break-word;
 }

@@ -7,6 +7,7 @@ import { io } from 'socket.io-client';
 export class ConnectService {
   // socket = io('https://nodejs-socketio-production.up.railway.app/');
   socket = io('http://localhost:3000');
+
   
   constructor() {
     this.socket.on("connect", () => {
@@ -14,18 +15,24 @@ export class ConnectService {
     })
    }
 
-   write(event: Event, chatElem: HTMLDivElement, inputElem: HTMLInputElement, input: string){
-    event.preventDefault()
-    console.log(input)
-    this.socket.emit("message", input)
-    inputElem.value =""
-    this.appendText(chatElem, input)
-   }
+  write(event: Event, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
+    inputElem.onkeyup = (event: KeyboardEvent) => {
+      if (event.key === 'Enter') {
+        event.preventDefault();
+        console.log(input)
+        this.socket.emit("message", input)
+        inputElem.innerText =""
+        this.appendText(chatElem, input)
+      }
+    }
+  }
 
-   onWriting(length: number){
+
+
+  onWriting(length: number){
     if(length === 0) return
     this.socket.emit("inputMessage", length)
-   }
+  }
 
    appendText(chat: HTMLDivElement, input: string){
     let chatBox = document.createElement("p");

@@ -1,8 +1,16 @@
 <div class="room">
     <div #chat class="chat"></div>
-    <form class="input-chat" (submit)="connectService.write($event,chat,input,input.value)">
-        <input #input (focus)="connectService.onWriting($any($event.target).value.length)" type="text" name="" id="messenger">
-    </form>
+    <div class="chat-div">
+        <!-- <input class="chat" #input (focus)="connectService.onWriting($any($event.target).value.length)" type="text" name="" id="messenger"> -->
+        <span
+            #input
+            (keydown)="connectService.write($event,chat,input,input.innerText)" 
+            class="chat-input"
+            role="textbox" 
+            contenteditable>
+            
+        </span>
+    </div>
 </div>
 
 
