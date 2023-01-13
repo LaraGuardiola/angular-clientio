@@ -1,6 +1,4 @@
-<form>
-    <input #input (focus)="connectService.onWriting($any($event.target).value.length)" type="text" name="" id="messenger">
-    <input type="submit" value="Send" (click)="connectService.write($event,chat,input,input.value)">
-</form>
-
-<div #chat class="chat"></div>
+<div>
+    <!-- <app-icon-button></app-icon-button> -->
+    <app-chat></app-chat>
+</div>
