@@ -14,8 +14,8 @@ export class ConnectService {
     })
    }
 
-  write(event: KeyboardEvent, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
-    if (event.key === 'Enter') {
+  write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
+    if (event.key === 'Enter' || event.key === 'Unidentified') {
       event.preventDefault();
       console.log(input)
       this.socket.emit("message", input)
