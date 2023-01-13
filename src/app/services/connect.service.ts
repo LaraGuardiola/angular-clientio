@@ -1,4 +1,4 @@
-import { ElementRef, Injectable, ViewChild } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 
 @Injectable({
@@ -19,19 +19,23 @@ export class ConnectService {
       event.preventDefault();
       console.log(input)
       this.socket.emit("message", input)
-      inputElem.innerText =""
+      inputElem.textContent =""
       this.appendText(chatElem, input)
     }
   }
 
-  onWriting(length: number){
-    if(length === 0) return
-    this.socket.emit("inputMessage", length)
+  onFocus(placeholder: HTMLSpanElement){
+    placeholder.textContent = ""
   }
 
-   appendText(chat: HTMLDivElement, input: string){
+  onFocusOut(placeholder: HTMLSpanElement, inputElem: HTMLSpanElement, placeholderValue: string){
+    if(inputElem.innerText.length != 0) return
+    placeholder.textContent = placeholderValue
+  }
+
+  appendText(chat: HTMLDivElement, input: string){
     let chatBox = document.createElement("p");
     chatBox.innerText = input;
     chat.append(chatBox);
-   }
+  }
 }

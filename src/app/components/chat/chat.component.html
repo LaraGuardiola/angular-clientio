@@ -3,12 +3,15 @@
     <div class="chat-div">
         <span
             #input
+            (focus)="connectService.onFocus(placeholder)"
+            (focusout)="connectService.onFocusOut(placeholder,input,this.placeholderValue)"
             (keydown)="connectService.write($event,chat,input,input.innerText)" 
             class="chat-input"
             role="textbox" 
             contenteditable>
             
         </span>
+        <span #placeholder class="placeholder">{{ this.placeholderValue }}</span>
     </div>
 </div>
 
