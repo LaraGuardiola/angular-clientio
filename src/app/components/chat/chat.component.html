@@ -3,7 +3,7 @@
     <div class="chat-div">
         <span
             #input
-            (click)="$event.preventDefault()"
+            (touch)="$event.preventDefault()"
             (focus)="connectService.onFocus(placeholder)"
             (focusout)="connectService.onFocusOut(placeholder,input,this.placeholderValue)"
             (keydown)="connectService.write($event,chat,input,input.innerText)" 
