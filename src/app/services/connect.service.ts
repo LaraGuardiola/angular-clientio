@@ -15,19 +15,19 @@ export class ConnectService {
     })
    }
 
-  write(event: Event, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
-    inputElem.onkeyup = (event: KeyboardEvent) => {
-      if (event.key === 'Enter') {
-        event.preventDefault();
-        console.log(input)
-        this.socket.emit("message", input)
-        inputElem.innerText =""
-        this.appendText(chatElem, input)
-      }
+  write(event: KeyboardEvent, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
+    if (event.key === 'Enter') {
+      event.preventDefault();
+      console.log(input)
+      this.socket.emit("message", input)
+      inputElem.innerText =""
+      this.appendText(chatElem, input)
     }
   }
 
-
+  onFocus(event: Event) {
+    event.preventDefault();
+  }
 
   onWriting(length: number){
     if(length === 0) return
