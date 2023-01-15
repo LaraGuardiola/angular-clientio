@@ -31,7 +31,6 @@ export class ConnectService {
   onInput(inputElem: HTMLSpanElement, input: string){
     if(input.endsWith("\n")){
       inputElem.textContent = input.slice(0,-1)
-      window.onkeydown
     }
   }
 
