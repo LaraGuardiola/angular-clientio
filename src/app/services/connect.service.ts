@@ -61,10 +61,12 @@ export class ConnectService {
 
     if(!response){
       bubble.style.justifyContent = "flex-end"
+      paragraph.style.backgroundColor = "#005C4B"
     }else{
       bubble.style.justifyContent = "flex-start"
+      paragraph.style.backgroundColor = "#2a3942"
     }
-    
+
     paragraph.style.marginLeft = "20px"
     paragraph.style.marginRight = "20px"
     paragraph.style.marginBottom = "10px"
@@ -72,7 +74,6 @@ export class ConnectService {
     paragraph.style.borderRadius = "10px"
     paragraph.style.padding = "10px"
     paragraph.style.color = "white"
-    paragraph.style.backgroundColor = "#2a3942"
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
     paragraph.style.maxWidth = "70%"
