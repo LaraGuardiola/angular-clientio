@@ -61,6 +61,7 @@ export class ConnectService {
 
     if(!response){
       bubble.style.justifyContent = "flex-start"
+    }else{
       bubble.style.justifyContent = "flex-end"
     }
 
