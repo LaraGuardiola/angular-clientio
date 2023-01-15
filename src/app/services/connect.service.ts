@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
 import { io } from 'socket.io-client';
 
 @Injectable({
@@ -9,7 +9,7 @@ export class ConnectService {
   socket = io('https://nodejs-socketio-production.up.railway.app/');
   // socket = io('http://localhost:3000');
   
-  constructor() {
+  constructor(private rendererFactory: RendererFactory2) {
     this.socket.on("connect", () => {
       console.log("Connected - SocketID:",this.socket.id)
     })
@@ -48,32 +48,36 @@ export class ConnectService {
 
     let bubble = document.createElement("div")
     let paragraph = document.createElement("p");
-    
+
     chat.append(bubble)
     bubble.append(paragraph)
-    
-    paragraph.innerText = input;
 
-    this.setBubbleStyles(bubble, response)
+    paragraph.innerText = input;
+    this.setBubbleStyles(bubble, paragraph, response)
   }
 
-  setBubbleStyles(bubble: HTMLDivElement, response: boolean){
-    bubble.style.marginLeft = "20px"
-    bubble.style.marginRight = "20px"
-    bubble.style.marginBottom = "10px"
-    bubble.style.border = "2px solid white"
-    bubble.style.borderRadius = "10px"
-    bubble.style.padding = "10px"
-    bubble.style.color = "white"
-    bubble.style.backgroundColor = "#2a3942"
-    bubble.style.width= "fit-content"
-    bubble.style.height= "fit-content"
-    bubble.style.maxWidth = "70%"
-    let chat = document.querySelector('.chat') as HTMLDivElement
-    if(response){
-      chat.style.alignItems = "flex-start"
-    }else{
-      chat.style.alignItems = "flex-end"
+  setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, response: boolean){
+    bubble.style.display = "flex"
+
+    if(!response){
+      bubble.style.justifyContent = "flex-start"
+      bubble.style.justifyContent = "flex-end"
     }
+
+    paragraph.style.marginLeft = "20px"
+    paragraph.style.marginRight = "20px"
+    paragraph.style.marginBottom = "10px"
+    paragraph.style.border = "2px solid white"
+    paragraph.style.borderRadius = "10px"
+    paragraph.style.padding = "10px"
+    paragraph.style.color = "white"
+    paragraph.style.backgroundColor = "#2a3942"
+    paragraph.style.width= "fit-content"
+    paragraph.style.height= "fit-content"
+    paragraph.style.maxWidth = "70%"
+    // let chat = document.querySelector('.chat') as HTMLDivElement
+    // if(response){
+    //   chat.style.alignItems = "flex-start"
+    // }
   }
 }
