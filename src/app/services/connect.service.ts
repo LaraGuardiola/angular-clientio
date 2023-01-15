@@ -29,7 +29,7 @@ export class ConnectService {
     if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
       if(input.endsWith("\n")){
         inputElem.textContent = input.slice(0,-1)
-        inputElem.dispatchEvent(new KeyboardEvent("keydown",{'key': 'Enter'}))
+        inputElem.dispatchEvent(new KeyboardEvent("keydown",{'key': 'Enter'})) //fix for mobile. can't find a better solution to avoid break lines in mobile
       }
     }
   }
@@ -47,11 +47,14 @@ export class ConnectService {
     if(!input) return
 
     let bubble = document.createElement("div")
-    this.setBubbleStyles(bubble)
     let paragraph = document.createElement("p");
+    
     chat.append(bubble)
     bubble.append(paragraph)
+    
     paragraph.innerText = input;
+
+    this.setBubbleStyles(bubble)
   }
 
   setBubbleStyles(bubble: HTMLDivElement){
@@ -63,5 +66,8 @@ export class ConnectService {
     bubble.style.padding = "10px"
     bubble.style.color = "white"
     bubble.style.backgroundColor = "#2a3942"
+    bubble.style.width= "fit-content"
+    bubble.style.height= "fit-content"
+    bubble.style.maxWidth = "70%"
   }
 }
