@@ -7,6 +7,7 @@ import { io } from 'socket.io-client';
 export class ConnectService {
 
   socket = io('https://nodejs-socketio-production.up.railway.app/');
+  // socket = io('http://localhost:3000');
   
   constructor() {
     this.socket.on("connect", () => {
@@ -15,12 +16,22 @@ export class ConnectService {
    }
 
   write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
-    if (event.key === 'Enter' || event.key === 'Unidentified') {
+    if (event.key === 'Enter') {
       event.preventDefault();
+      if(input.endsWith("\n")){
+        input = input.slice(0, -1)
+      }
       console.log(input)
       this.socket.emit("message", input)
       inputElem.textContent =""
       this.appendText(chatElem, input)
+    }
+  }
+
+  onInput(inputElem: HTMLSpanElement, input: string){
+    if(input.endsWith("\n")){
+      inputElem.textContent = input.slice(0,-1)
+      window.onkeydown
     }
   }
 
@@ -34,8 +45,24 @@ export class ConnectService {
   }
 
   appendText(chat: HTMLDivElement, input: string){
-    let chatBox = document.createElement("p");
-    chatBox.innerText = input;
-    chat.append(chatBox);
+    if(!input) return
+
+    let bubble = document.createElement("div")
+    this.setBubbleStyles(bubble)
+    let paragraph = document.createElement("p");
+    chat.append(bubble)
+    bubble.append(paragraph)
+    paragraph.innerText = input;
+  }
+
+  setBubbleStyles(bubble: HTMLDivElement){
+    bubble.style.marginLeft = "20px"
+    bubble.style.marginRight = "20px"
+    bubble.style.marginBottom = "10px"
+    bubble.style.border = "2px solid white"
+    bubble.style.borderRadius = "10px"
+    bubble.style.padding = "10px"
+    bubble.style.color = "white"
+    bubble.style.backgroundColor = "#2a3942"
   }
 }
