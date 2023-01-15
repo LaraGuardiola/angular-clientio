@@ -15,13 +15,13 @@ export class ConnectService {
     })
    }
 
-  write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
+  write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, response: boolean){
     if(event.key === 'Enter') {
       event.preventDefault();
       console.log(input)
       this.socket.emit("message", input)
       inputElem.textContent =""
-      this.appendText(chatElem, input)
+      this.appendText(chatElem, input, response)
     }
   }
 
@@ -43,7 +43,7 @@ export class ConnectService {
     placeholder.textContent = placeholderValue
   }
 
-  appendText(chat: HTMLDivElement, input: string){
+  appendText(chat: HTMLDivElement, input: string, response: boolean){
     if(!input) return
 
     let bubble = document.createElement("div")
@@ -54,10 +54,10 @@ export class ConnectService {
     
     paragraph.innerText = input;
 
-    this.setBubbleStyles(bubble)
+    this.setBubbleStyles(bubble, response)
   }
 
-  setBubbleStyles(bubble: HTMLDivElement){
+  setBubbleStyles(bubble: HTMLDivElement, response: boolean){
     bubble.style.marginLeft = "20px"
     bubble.style.marginRight = "20px"
     bubble.style.marginBottom = "10px"
@@ -69,5 +69,9 @@ export class ConnectService {
     bubble.style.width= "fit-content"
     bubble.style.height= "fit-content"
     bubble.style.maxWidth = "70%"
+    let chat = document.querySelector('.chat') as HTMLDivElement
+    if(response){
+      chat.style.alignItems = "flex-start"
+    }
   }
 }
