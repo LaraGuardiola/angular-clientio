@@ -72,6 +72,8 @@ export class ConnectService {
     let chat = document.querySelector('.chat') as HTMLDivElement
     if(response){
       chat.style.alignItems = "flex-start"
+    }else{
+      chat.style.alignItems = "flex-end"
     }
   }
 }

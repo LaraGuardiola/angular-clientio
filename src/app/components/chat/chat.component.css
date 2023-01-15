@@ -20,6 +20,8 @@
     overflow-wrap: break-word;
 }
 
+.chat .bubble-response
+
 .chat-div{
     display: flex;
     justify-content: flex-end;
