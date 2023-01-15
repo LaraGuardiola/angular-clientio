@@ -12,9 +12,7 @@ export class ChatComponent {
 
   constructor(protected connectService: ConnectService){
     connectService.socket.on("response", (input:string) => {
-      let chatBox = document.createElement("p");
-      chatBox.innerText = input;
-      this.chat.nativeElement.append(chatBox);
+      connectService.appendText(this.chat,input)
     })
   }
 }

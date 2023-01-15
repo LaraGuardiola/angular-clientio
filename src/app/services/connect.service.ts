@@ -16,11 +16,8 @@ export class ConnectService {
    }
 
   write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string){
-    if (event.key === 'Enter') {
+    if(event.key === 'Enter') {
       event.preventDefault();
-      if(input.endsWith("\n")){
-        input = input.slice(0, -1)
-      }
       console.log(input)
       this.socket.emit("message", input)
       inputElem.textContent =""
@@ -29,9 +26,11 @@ export class ConnectService {
   }
 
   onInput(inputElem: HTMLSpanElement, input: string){
-    if(input.endsWith("\n")){
-      inputElem.textContent = input.slice(0,-1)
-      inputElem.dispatchEvent(new KeyboardEvent("keydown",{'key': 'Enter'}))
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      if(input.endsWith("\n")){
+        inputElem.textContent = input.slice(0,-1)
+        inputElem.dispatchEvent(new KeyboardEvent("keydown",{'key': 'Enter'}))
+      }
     }
   }
 
