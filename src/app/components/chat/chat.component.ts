@@ -17,7 +17,8 @@ export class ChatComponent implements AfterViewInit{
   }
   ngAfterViewInit(): void {
     this.connectService.socket.on("response", (input:string) => {
-      this.connectService.appendText(this.chat, input)
+      let chatty = document.querySelector('.chat') as HTMLDivElement;
+      this.connectService.appendText(chatty, input)
     })
   }
 }
