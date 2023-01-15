@@ -60,11 +60,11 @@ export class ConnectService {
     bubble.style.display = "flex"
 
     if(!response){
-      bubble.style.justifyContent = "flex-start"
-    }else{
       bubble.style.justifyContent = "flex-end"
+    }else{
+      bubble.style.justifyContent = "flex-start"
     }
-
+    
     paragraph.style.marginLeft = "20px"
     paragraph.style.marginRight = "20px"
     paragraph.style.marginBottom = "10px"
@@ -76,9 +76,5 @@ export class ConnectService {
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
     paragraph.style.maxWidth = "70%"
-    // let chat = document.querySelector('.chat') as HTMLDivElement
-    // if(response){
-    //   chat.style.alignItems = "flex-start"
-    // }
   }
 }
