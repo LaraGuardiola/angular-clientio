@@ -1,0 +1,17 @@
+<header>
+    <div class="name-menu">
+        <div #icon class="symbol"><fa-icon [icon]="symbol"></fa-icon></div>
+        <div class="input">
+            <span 
+                #input
+                (input)="connectService.onInput(input,input.innerText)"
+                (focus)="connectService.onFocus(placeholder)"
+                (focusout)="connectService.onFocusOut(placeholder,input,this.placeholderVal)" 
+                class="name-input" 
+                role="textbox" 
+                contenteditable>
+            </span>
+            <span #placeholder class="name-placeholder">{{ placeholderVal }}</span>
+        </div>
+    </div>
+</header>

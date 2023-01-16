@@ -1,0 +1,48 @@
+@font-face {
+    font-family: Montserrat;
+    src: url("../../../assets/Montserrat-VariableFont_wght.ttf");
+}
+
+header {
+    position: fixed;
+    top: 0;
+    height: 60px;
+    width: 100%;
+    background-color: #202C33;
+    display: flex;
+    align-items: center;
+    font-family: Montserrat; 
+}
+
+.name-menu{
+    display: flex;
+    align-items: center;
+}
+
+.symbol {
+    font-size: 32px;
+    color: white;
+    margin-left: 0.8em;
+}
+
+.input{
+    margin-left: 0.8em;
+    display: flex;
+}
+
+.input > .name-input {
+    height: 46px;
+    border-radius: 8px;
+    background-color: #2a3942;
+    display: block;
+    width: 50vw;
+    color: white;
+    padding:14px;
+}
+
+.name-placeholder{
+    position: absolute;
+    bottom: 20px;
+    left: 90px;
+    color: #7A6E5A;
+}

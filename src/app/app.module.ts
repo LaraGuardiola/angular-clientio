@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { IconButtonComponent } from './components/icon-button/icon-button.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     ChatComponent,
-    IconButtonComponent
+    IconButtonComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
