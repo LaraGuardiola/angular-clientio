@@ -1,4 +1,4 @@
-import { Injectable} from '@angular/core';
+import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 
 @Injectable({
@@ -6,8 +6,8 @@ import { io } from 'socket.io-client';
 })
 export class ConnectService {
 
-  socket = io('https://nodejs-socketio-production.up.railway.app/');
-  // socket = io('http://localhost:3000');
+  // socket = io('https://nodejs-socketio-production.up.railway.app/');
+  socket = io('http://localhost:3000');
   
   constructor() {
     this.socket.on("connect", () => {
@@ -77,6 +77,11 @@ export class ConnectService {
       paragraph.style.backgroundColor = "#2a3942"
     }
 
+    this.setParagraphStyle(paragraph)
+    this.setHourStyles(paragraph, hour, response)
+  }
+
+  setParagraphStyle(paragraph: HTMLParagraphElement){
     //paragraph global styles
     paragraph.style.marginLeft = "20px"
     paragraph.style.marginRight = "20px"
@@ -84,17 +89,26 @@ export class ConnectService {
     paragraph.style.border = "2px solid white"
     paragraph.style.borderRadius = "10px"
     paragraph.style.padding = "10px"
-    paragraph.style.paddingRight = "40px"
+    paragraph.style.paddingRight = "50px"
     paragraph.style.color = "white"
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
-    paragraph.style.maxWidth = "70%"
+    paragraph.style.maxWidth= `${window.innerWidth * 0.7}px`
+  }
 
+  setHourStyles(paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){
     //hour style
-
     hour.style.position = "absolute"
     hour.style.bottom = "15px"
-    hour.style.right = "30px"
     hour.style.fontSize = "12px"
+
+    //sets position of the hour span depending on response or message
+    if(!response){
+      hour.style.right = "30px"
+    }else{
+    hour.style.display = `block`
+    hour.style.textAlign = `end`
+    hour.style.width = `${paragraph.clientWidth - 20}px`
+    }
   }
 }
