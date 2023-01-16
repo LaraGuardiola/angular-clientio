@@ -1,4 +1,4 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { io } from 'socket.io-client';
 
 @Injectable({
@@ -9,7 +9,7 @@ export class ConnectService {
   socket = io('https://nodejs-socketio-production.up.railway.app/');
   // socket = io('http://localhost:3000');
   
-  constructor(private rendererFactory: RendererFactory2) {
+  constructor() {
     this.socket.on("connect", () => {
       console.log("Connected - SocketID:",this.socket.id)
     })
@@ -48,34 +48,53 @@ export class ConnectService {
 
     let bubble = document.createElement("div")
     let paragraph = document.createElement("p");
+    let hour = document.createElement("span")
+
+    let date = new Date();
+    paragraph.innerText = input;
+    hour.innerText = date.getHours() + ":" + date.getMinutes()
 
     chat.append(bubble)
     bubble.append(paragraph)
+    paragraph.append(hour)
 
-    paragraph.innerText = input;
-    this.setBubbleStyles(bubble, paragraph, response)
+    console.log(hour.innerText)
+
+    this.setBubbleStyles(bubble, paragraph, hour, response)
   }
 
-  setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, response: boolean){
+  setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){
     bubble.style.display = "flex"
+    bubble.style.position = "relative"
 
+    //setting style if message or response
     if(!response){
       bubble.style.justifyContent = "flex-end"
       paragraph.style.backgroundColor = "#005C4B"
+      
     }else{
       bubble.style.justifyContent = "flex-start"
       paragraph.style.backgroundColor = "#2a3942"
     }
 
+    //paragraph global styles
     paragraph.style.marginLeft = "20px"
     paragraph.style.marginRight = "20px"
     paragraph.style.marginBottom = "10px"
     paragraph.style.border = "2px solid white"
     paragraph.style.borderRadius = "10px"
     paragraph.style.padding = "10px"
+    paragraph.style.paddingRight = "40px"
     paragraph.style.color = "white"
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
     paragraph.style.maxWidth = "70%"
+
+    //hour style
+
+    hour.style.position = "absolute"
+    hour.style.bottom = "15px"
+    hour.style.right = "30px"
+    hour.style.fontSize = "12px"
   }
 }
