@@ -45,4 +45,5 @@ header {
     bottom: 20px;
     left: 90px;
     color: #7A6E5A;
+    pointer-events: none;
 }

@@ -14,4 +14,26 @@ export class HeaderComponent {
   constructor(protected connectService: ConnectService){
     this.symbol = faIdCard
   }
+
+  limitCharacters(inputElem: HTMLSpanElement, input: string) {
+    
+    if (inputElem.textContent!.length > 20) {
+        inputElem.textContent = inputElem.textContent!.substring(0, 20);
+    }
+
+    if(/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+      if(input.endsWith("\n")){
+        inputElem.textContent = input.slice(0,-1)
+      }
+    }
+  }
+
+  preventBreakLine(event: KeyboardEvent){
+    if(event.key === 'Enter') {
+      event.preventDefault();
+    }
+  }
+
+
+  
 }
