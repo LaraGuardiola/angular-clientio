@@ -11,9 +11,14 @@ export class ChatComponent implements AfterViewInit{
   placeholderValue: string = "Write your message here..."
   @ViewChild('chat') chat: ElementRef | any
   
-  constructor(protected connectService: ConnectService, protected utilityService: UtilityService){}
+  constructor(protected connectService: ConnectService, protected utilityService: UtilityService){
+   
+  }
   
   ngAfterViewInit(): void {
+    window.addEventListener("resize", () => {
+      this.setChatHeight()
+    })
     this.setChatHeight()
     this.onResponse()
   }
