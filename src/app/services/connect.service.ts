@@ -6,8 +6,8 @@ import { io } from 'socket.io-client';
 })
 export class ConnectService {
 
-  socket = io('https://nodejs-socketio-production.up.railway.app/')
-  // socket = io('http://localhost:3000')
+  // socket = io('https://nodejs-socketio-production.up.railway.app/')
+  socket = io('http://localhost:3000')
   
   constructor() {
     this.socket.on("connect", () => {
@@ -103,9 +103,9 @@ export class ConnectService {
     if(!response){
       hour.style.right = "30px"
     }else{
-    hour.style.display = `block`
-    hour.style.textAlign = `end`
-    hour.style.width = `${paragraph.clientWidth - 20}px`
+      hour.style.display = `block`
+      hour.style.textAlign = `end`
+      hour.style.width = `${paragraph.clientWidth - 20}px`
     }
   }
 }

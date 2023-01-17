@@ -4,9 +4,9 @@
 }
 
 .room{
-    /* height: 100vh - 60px; */
     width: 100%;
     font-family: Montserrat;
+    margin-top: 60px;
 }
 
 /* chat */
