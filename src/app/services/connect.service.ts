@@ -1,3 +1,4 @@
+import { IfStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
 
@@ -6,8 +7,8 @@ import { io } from 'socket.io-client';
 })
 export class ConnectService {
 
-  // socket = io('https://nodejs-socketio-production.up.railway.app/')
-  socket = io('http://localhost:3000')
+  socket = io('https://nodejs-socketio-production.up.railway.app/')
+  // socket = io('http://localhost:3000')
   
   constructor() {
     this.socket.on("connect", () => {
@@ -40,6 +41,7 @@ export class ConnectService {
     let [bubble,paragraph,hour] =  this.createBubble(chat,input)
 
     this.setBubbleStyles(bubble as HTMLDivElement, paragraph as HTMLParagraphElement, hour, response)
+    this.chatResize(chat,bubble as HTMLDivElement)
   }
 
   createBubble(chat: HTMLDivElement, input: string): HTMLElement[]{
@@ -55,7 +57,6 @@ export class ConnectService {
     bubble.append(paragraph)
     paragraph.append(hour)
 
-    console.log(hour.innerText)
     return [bubble,paragraph,hour]
   }
 
@@ -107,5 +108,19 @@ export class ConnectService {
       hour.style.textAlign = `end`
       hour.style.width = `${paragraph.clientWidth - 20}px`
     }
+  }
+
+  chatResize(chat: HTMLDivElement,bubble: HTMLDivElement){
+    let bubbles = document.querySelectorAll(".chat > div")
+    let height = 0
+    let chatHeight = chat.clientHeight
+
+    bubbles.forEach(bubble => {
+      height += bubble.clientHeight
+    })
+
+    if(height > chat.clientHeight){
+      chat.style.height = `${chatHeight + bubble.clientHeight}px`
+    }    
   }
 }
