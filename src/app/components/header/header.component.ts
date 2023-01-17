@@ -1,6 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { faIdCard, IconDefinition } from '@fortawesome/free-solid-svg-icons';
-import { ConnectService } from 'src/app/services/connect.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-header',
@@ -11,12 +11,11 @@ export class HeaderComponent {
   @Input() symbol: IconDefinition
   placeholderVal: string = "Write your name"
 
-  constructor(protected connectService: ConnectService){
+  constructor(protected utilityService: UtilityService){
     this.symbol = faIdCard
   }
 
   limitCharacters(inputElem: HTMLSpanElement, input: string) {
-    
     if (inputElem.textContent!.length > 20) {
         inputElem.textContent = inputElem.textContent!.substring(0, 20);
     }
@@ -33,7 +32,4 @@ export class HeaderComponent {
       event.preventDefault();
     }
   }
-
-
-  
 }

@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import { ConnectService } from 'src/app/services/connect.service';
+import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
   selector: 'app-chat',
@@ -9,9 +10,8 @@ import { ConnectService } from 'src/app/services/connect.service';
 export class ChatComponent implements AfterViewInit{
   placeholderValue: string = "Write your message here..."
   @ViewChild('chat') chat: ElementRef | any
-  constructor(protected connectService: ConnectService){
-    
-  }
+  
+  constructor(protected connectService: ConnectService, protected utilityService: UtilityService){}
   
   ngAfterViewInit(): void {
     this.setChatHeight()

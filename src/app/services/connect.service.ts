@@ -34,34 +34,31 @@ export class ConnectService {
     }
   }
 
-  onFocus(placeholder: HTMLSpanElement){
-    placeholder.textContent = ""
-  }
-
-  onFocusOut(placeholder: HTMLSpanElement, inputElem: HTMLSpanElement, placeholderValue: string){
-    if(inputElem.innerText.length != 0) return
-    placeholder.textContent = placeholderValue
-  }
-
   appendText(chat: HTMLDivElement, input: string, response: boolean){
     if(!input) return
 
+    let [bubble,paragraph,hour] =  this.createBubble(chat,input)
+
+    this.setBubbleStyles(bubble as HTMLDivElement, paragraph as HTMLParagraphElement, hour, response)
+  }
+
+  createBubble(chat: HTMLDivElement, input: string): HTMLElement[]{
     let bubble = document.createElement("div")
-    let paragraph = document.createElement("p");
+    let paragraph = document.createElement("p")
     let hour = document.createElement("span")
 
     let date = new Date();
     paragraph.innerText = input;
-    hour.innerText = date.getHours() + ":" + date.getMinutes()
+    hour.innerText = `${date.getHours().toString()}:${date.getMinutes().toString()}`
 
     chat.append(bubble)
     bubble.append(paragraph)
     paragraph.append(hour)
 
     console.log(hour.innerText)
-
-    this.setBubbleStyles(bubble, paragraph, hour, response)
+    return [bubble,paragraph,hour]
   }
+
 
   setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){
     bubble.style.display = "flex"
@@ -93,7 +90,7 @@ export class ConnectService {
     paragraph.style.color = "white"
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
-    paragraph.style.maxWidth= `${window.innerWidth * 0.7}px`
+    paragraph.style.maxWidth= `${window.innerWidth * 0.8}px`
   }
 
   setHourStyles(paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){

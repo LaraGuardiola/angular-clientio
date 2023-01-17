@@ -4,8 +4,8 @@
         <span
             #input
             (input)="connectService.onInput(input,input.innerText)"
-            (focus)="connectService.onFocus(placeholder)"
-            (focusout)="connectService.onFocusOut(placeholder,input,this.placeholderValue)"
+            (focus)="utilityService.onFocus(placeholder)"
+            (focusout)="utilityService.onFocusOut(placeholder,input,this.placeholderValue)"
             (keydown)="connectService.write($event,chat,input,input.innerText, false)" 
             class="chat-input"
             role="textbox" 

@@ -4,10 +4,10 @@
         <div class="input">
             <span 
                 #input
-                (keydown)="this.preventBreakLine($event)"
-                (input)="this.limitCharacters(input,input.innerText)"
-                (focus)="connectService.onFocus(placeholder)"
-                (focusout)="connectService.onFocusOut(placeholder,input,this.placeholderVal)" 
+                (keydown)="preventBreakLine($event)"
+                (input)="limitCharacters(input,input.innerText)"
+                (focus)="utilityService.onFocus(placeholder)"
+                (focusout)="utilityService.onFocusOut(placeholder,input,this.placeholderVal)" 
                 class="name-input" 
                 role="textbox" 
                 contenteditable>
