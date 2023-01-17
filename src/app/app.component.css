@@ -1,0 +1,5 @@
+.mainspace{
+    display: flex;
+    flex-direction: column;
+}
+
