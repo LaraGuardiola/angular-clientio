@@ -118,8 +118,8 @@ export class ConnectService {
       height += bubble.clientHeight
     })
 
-    if(height + 10 > chat.clientHeight){
-      chat.style.height = `${chatHeight + bubble.clientHeight}px`
+    if(height > chat.clientHeight){
+      chat.style.height = `${height + 13}px`
       document.body.style.marginBottom = "75px"
       window.scrollTo(0, document.body.scrollHeight)
     }    

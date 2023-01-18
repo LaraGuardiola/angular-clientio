@@ -16,13 +16,18 @@ export class ChatComponent implements OnInit,AfterViewInit{
 
   }
   ngOnInit(){
-    (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.availHeight - 130}px`
+    this.setInitialChatHeight()
+    // this.setChatHeight()
     // this.screenOrientation()
   }
   ngAfterViewInit(): void {
     // this.screenOrientation()
     // this.setChatHeight()
     this.onResponse()
+  }
+
+  setInitialChatHeight(){
+    (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.availHeight - 130}px`
   }
 
   screenOrientation(){
@@ -35,14 +40,15 @@ export class ChatComponent implements OnInit,AfterViewInit{
      
   }
 
-  // setChatHeight(){
-  //   window.addEventListener("resize", () => {
-  //     console.log(window.screen.availHeight, window.innerHeight, window.screen.height)
-  //   //130 is the sum of the header and input chat(footer) heights
-  //     window.scrollTo(0, document.body.scrollHeight + 20)
-  //     this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
-  //   })
-  // }
+  setChatHeight(){
+    window.addEventListener("resize", () => {
+      console.log(window.screen.availHeight, window.innerHeight, window.screen.height)
+    //130 is the sum of the header and input chat(footer) heights
+      
+      this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
+      window.scrollTo(0, document.body.scrollHeight + 20)
+    })
+  }
 
   onResponse(){
     this.connectService.socket.on("response", (input:string) => {
