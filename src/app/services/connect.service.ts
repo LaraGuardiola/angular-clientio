@@ -7,7 +7,7 @@ import { io } from 'socket.io-client';
 })
 export class ConnectService {
 
-  socket = io('https://nodejs-socketio-production.up.railway.app/')
+  socket = io('https://chatonymous-dev.onrender.com')
   // socket = io('http://localhost:3000')
   
   constructor() {
