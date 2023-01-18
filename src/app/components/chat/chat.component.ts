@@ -10,12 +10,14 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class ChatComponent implements OnInit,AfterViewInit{
   placeholderValue: string = "Write your message here..."
   @ViewChild('chat') chat: ElementRef | any
+  chatHeight: string = `${window.screen.availHeight - 130}px`
   
   constructor(protected connectService: ConnectService, protected utilityService: UtilityService){
-    
+
   }
   ngOnInit(){
     (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.availHeight - 130}px`
+    // this.screenOrientation()
   }
   ngAfterViewInit(): void {
     // this.screenOrientation()
@@ -23,14 +25,15 @@ export class ChatComponent implements OnInit,AfterViewInit{
     this.onResponse()
   }
 
-  // screenOrientation(){
-  //   console.log(window.screen.height)
-  //   screen.orientation.addEventListener("change", () => {
-  //     window.scrollTo(0, document.body.scrollHeight)
-  //     this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
-
-  //   })
-  // }
+  screenOrientation(){
+    console.log(window.screen.height)
+    screen.orientation.addEventListener("change", () => {
+      (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.height - 130}px`
+      window.scrollTo(0, document.body.scrollHeight)
+       //this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
+    })
+     
+  }
 
   // setChatHeight(){
   //   window.addEventListener("resize", () => {
