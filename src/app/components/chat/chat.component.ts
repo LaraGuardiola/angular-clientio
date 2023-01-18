@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ConnectService } from 'src/app/services/connect.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
@@ -7,26 +7,39 @@ import { UtilityService } from 'src/app/services/utility.service';
   templateUrl: './chat.component.html',
   styleUrls: ['./chat.component.css']
 })
-export class ChatComponent implements AfterViewInit{
+export class ChatComponent implements OnInit,AfterViewInit{
   placeholderValue: string = "Write your message here..."
   @ViewChild('chat') chat: ElementRef | any
   
   constructor(protected connectService: ConnectService, protected utilityService: UtilityService){
-   
+    
   }
-  
+  ngOnInit(){
+    (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.availHeight - 130}px`
+  }
   ngAfterViewInit(): void {
-    window.addEventListener("resize", () => {
-      this.setChatHeight()
-    })
-    this.setChatHeight()
+    // this.screenOrientation()
+    // this.setChatHeight()
     this.onResponse()
   }
 
-  setChatHeight(){
-    //130 is the sum of the header and input chat(footer) heights
-    this.chat.nativeElement.style.height = `${window.innerHeight - 130}px`
-  }
+  // screenOrientation(){
+  //   console.log(window.screen.height)
+  //   screen.orientation.addEventListener("change", () => {
+  //     window.scrollTo(0, document.body.scrollHeight)
+  //     this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
+
+  //   })
+  // }
+
+  // setChatHeight(){
+  //   window.addEventListener("resize", () => {
+  //     console.log(window.screen.availHeight, window.innerHeight, window.screen.height)
+  //   //130 is the sum of the header and input chat(footer) heights
+  //     window.scrollTo(0, document.body.scrollHeight + 20)
+  //     this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
+  //   })
+  // }
 
   onResponse(){
     this.connectService.socket.on("response", (input:string) => {
