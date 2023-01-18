@@ -15,11 +15,6 @@ header {
     z-index: 10;
 }
 
-.name-menu{
-    display: flex;
-    align-items: center;
-}
-
 .symbol {
     font-size: 32px;
     color: white;

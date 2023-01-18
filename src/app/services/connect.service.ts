@@ -1,6 +1,6 @@
-import { IfStmt } from '@angular/compiler';
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
+import { UtilityService } from './utility.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +10,7 @@ export class ConnectService {
   socket = io('https://chatonymous-dev.onrender.com')
   // socket = io('http://localhost:3000')
   
-  constructor() {
+  constructor(protected utilityService: UtilityService) {
     this.socket.on("connect", () => {
       console.log("Connected - SocketID:",this.socket.id)
     })
@@ -37,28 +37,11 @@ export class ConnectService {
   appendText(chat: HTMLDivElement, input: string, response: boolean){
     if(!input) return
 
-    let [bubble,paragraph,hour] =  this.createBubble(chat,input)
+    let [bubble,paragraph,hour] =  this.utilityService.createBubble(chat,input)
 
     this.setBubbleStyles(bubble as HTMLDivElement, paragraph as HTMLParagraphElement, hour, response)
-    this.chatResize(chat,bubble as HTMLDivElement)
+    this.chatResize(chat)
   }
-
-  createBubble(chat: HTMLDivElement, input: string): HTMLElement[]{
-    let bubble = document.createElement("div")
-    let paragraph = document.createElement("p")
-    let hour = document.createElement("span")
-
-    let date = new Date();
-    paragraph.innerText = input;
-    hour.innerText = `${date.getHours().toString()}:${date.getMinutes().toString()}`
-
-    chat.append(bubble)
-    bubble.append(paragraph)
-    paragraph.append(hour)
-
-    return [bubble,paragraph,hour]
-  }
-
 
   setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){
     bubble.style.display = "flex"
@@ -109,19 +92,28 @@ export class ConnectService {
     }
   }
 
-  chatResize(chat: HTMLDivElement,bubble: HTMLDivElement){
+  chatResize(chat: HTMLDivElement){
     let bubbles = document.querySelectorAll(".chat > div")
     let height = 0
-    let chatHeight = chat.clientHeight
 
     bubbles.forEach(bubble => {
       height += bubble.clientHeight
     })
 
     if(height > chat.clientHeight){
-      chat.style.height = `${height + 13}px`
-      document.body.style.marginBottom = "75px"
+      this.setMarginBottom(chat, height)
+      
       window.scrollTo(0, document.body.scrollHeight)
     }    
+  }
+
+  setMarginBottom(chat: HTMLDivElement, height: number){
+    chat.style.height = `${height + 10}px`
+      console.log(screen.orientation)
+      if(screen.orientation.type === "landscape-primary"){
+        document.body.style.marginBottom = "65px"
+      }else{
+        document.body.style.marginBottom = "75px"
+      }
   }
 }

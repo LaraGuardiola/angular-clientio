@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { ConnectService } from 'src/app/services/connect.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
@@ -9,20 +9,14 @@ import { UtilityService } from 'src/app/services/utility.service';
 })
 export class ChatComponent implements OnInit,AfterViewInit{
   placeholderValue: string = "Write your message here..."
-  @ViewChild('chat') chat: ElementRef | any
-  chatHeight: string = `${window.screen.availHeight - 130}px`
   
-  constructor(protected connectService: ConnectService, protected utilityService: UtilityService){
+  constructor(protected connectService: ConnectService, protected utilityService: UtilityService){}
 
-  }
   ngOnInit(){
     this.setInitialChatHeight()
-    // this.setChatHeight()
-    // this.screenOrientation()
+    this.onResize()
   }
   ngAfterViewInit(): void {
-    // this.screenOrientation()
-    // this.setChatHeight()
     this.onResponse()
   }
 
@@ -30,24 +24,18 @@ export class ChatComponent implements OnInit,AfterViewInit{
     (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.availHeight - 130}px`
   }
 
-  screenOrientation(){
-    console.log(window.screen.height)
-    screen.orientation.addEventListener("change", () => {
-      (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.height - 130}px`
-      window.scrollTo(0, document.body.scrollHeight)
-       //this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
-    })
-     
+  onResize(){
+    window.addEventListener("change", this.setChatHeight)
   }
 
   setChatHeight(){
-    window.addEventListener("resize", () => {
-      console.log(window.screen.availHeight, window.innerHeight, window.screen.height)
-    //130 is the sum of the header and input chat(footer) heights
-      
-      this.chat.nativeElement.style.height = `${window.screen.availHeight - 130}px`
-      window.scrollTo(0, document.body.scrollHeight + 20)
-    })
+      let chatHeight = this.utilityService.getChatHeight()
+      let chat = this.utilityService.getChat()
+      if(chatHeight > window.screen.availHeight){
+        chat.style.height = `${chatHeight}px`
+      }else{
+        chat.style.height = `${window.screen.availHeight - 120}px`
+      }
   }
 
   onResponse(){
