@@ -54,7 +54,6 @@ export class HeaderComponent implements OnInit, AfterViewInit{
   }
 
   onBlur(){
-    
     this.input.nativeElement.addEventListener('blur', () => {
       if(this.input.nativeElement.textContent.length != 0){
         this.input.nativeElement.style.backgroundColor = "#202C33"
