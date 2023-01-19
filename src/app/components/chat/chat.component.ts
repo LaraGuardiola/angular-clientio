@@ -39,7 +39,6 @@ export class ChatComponent implements OnInit,AfterViewInit{
       if(chatHeight > window.screen.availHeight){
         chat.style.height = `${chatHeight}px`
       }else{
-        console.log(window.screen.availHeight, window.innerHeight)
         chat.style.height = `${window.screen.availHeight - 130}px`
       }
   }

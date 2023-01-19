@@ -26,7 +26,7 @@
     display: flex;
 }
 
-.input > .name-input {
+.name-input {
     height: 46px;
     border-radius: 8px;
     background-color: #2a3942;
@@ -42,4 +42,17 @@
     left: 90px;
     color: #7A6E5A;
     pointer-events: none;
+}
+
+.input-animation-in{
+    font-size: 20px;
+    font-weight: bold;
+    background-color: #202C33;
+    transition: all 0.5s;
+}
+
+.input-animation-out{
+    background-color: #2a3942;
+    font-weight: normal;
+    transition: all 0.5s;
 }
