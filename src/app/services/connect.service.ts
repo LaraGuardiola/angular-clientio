@@ -104,7 +104,9 @@ export class ConnectService {
       this.setMarginBottom(chat, height)
       
       window.scrollTo(0, document.body.scrollHeight)
-    }    
+    }else{
+      window.scrollTo(0,0)
+    }
   }
 
   setMarginBottom(chat: HTMLDivElement, height: number){
