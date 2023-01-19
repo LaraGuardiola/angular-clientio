@@ -110,10 +110,10 @@ export class ConnectService {
   }
 
   setMarginBottom(chat: HTMLDivElement, height: number){
-    chat.style.height = `${height + 10}px`
+    chat.style.height = `${height + 20}px` //extra height so in mobile doesn't look like shit
       console.log(screen.orientation)
       if(screen.orientation.type === "landscape-primary"){
-        document.body.style.marginBottom = "65px"
+        document.body.style.marginBottom = "75px"
       }else{
         document.body.style.marginBottom = "75px"
       }

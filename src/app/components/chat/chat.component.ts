@@ -21,7 +21,12 @@ export class ChatComponent implements OnInit,AfterViewInit{
   }
 
   setInitialChatHeight(){
-    (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.screen.availHeight - 130}px`
+    (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.innerHeight - 130}px`
+
+    //fix for mobile in case keyboard is open
+    if(screen.orientation.type === "portrait-primary"){
+      (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.innerHeight - 90}px`
+    }
   }
 
   onResize(){
@@ -34,7 +39,8 @@ export class ChatComponent implements OnInit,AfterViewInit{
       if(chatHeight > window.screen.availHeight){
         chat.style.height = `${chatHeight}px`
       }else{
-        chat.style.height = `${window.screen.availHeight - 120}px`
+        console.log(window.screen.availHeight, window.innerHeight)
+        chat.style.height = `${window.screen.availHeight - 130}px`
       }
   }
 
