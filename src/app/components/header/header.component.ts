@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { faIdCard, IconDefinition } from '@fortawesome/free-solid-svg-icons';
 import { UtilityService } from 'src/app/services/utility.service';
 
@@ -7,12 +7,24 @@ import { UtilityService } from 'src/app/services/utility.service';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent {
+export class HeaderComponent implements OnInit{
   @Input() symbol: IconDefinition
   placeholderVal: string = "Write your name"
 
   constructor(protected utilityService: UtilityService){
     this.symbol = faIdCard
+  }
+
+  ngOnInit(): void {
+    // window.onscroll = () => this.setStickyHeader()
+  }
+  
+  setStickyHeader(){
+    let header = document.querySelector("header") as HTMLHeadingElement;
+    let headerOffSetTop = header.offsetTop
+    if(window.scrollY > headerOffSetTop){
+      header.classList.add("header")
+    }
   }
 
   limitCharacters(inputElem: HTMLSpanElement, input: string) {

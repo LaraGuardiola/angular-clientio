@@ -73,7 +73,7 @@ export class ConnectService {
     paragraph.style.color = "white"
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
-    paragraph.style.maxWidth= `${window.innerWidth * 0.8}px`
+    paragraph.style.maxWidth= `${window.screen.width * 0.8}px`
   }
 
   setHourStyles(paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){

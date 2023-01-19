@@ -3,7 +3,7 @@
     src: url("../../../assets/Montserrat-VariableFont_wght.ttf");
 }
 
-header {
+.header {
     position: fixed;
     top: 0;
     height: 60px;
