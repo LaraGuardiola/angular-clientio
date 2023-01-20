@@ -1,5 +1,6 @@
 import { AfterViewInit, Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { faIdCard, IconDefinition } from '@fortawesome/free-solid-svg-icons';
+import { ConnectService } from 'src/app/services/connect.service';
 import { UtilityService } from 'src/app/services/utility.service';
 
 @Component({
@@ -10,9 +11,11 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class HeaderComponent implements OnInit, AfterViewInit{
   @Input() symbol: IconDefinition
   placeholderVal: string = "Write your name"
+  count!: number
+  socketStatus!: string
   @ViewChild("input") input!: ElementRef
 
-  constructor(protected utilityService: UtilityService){
+  constructor(protected connectService: ConnectService, protected utilityService: UtilityService){
     this.symbol = faIdCard
   }
 
@@ -23,6 +26,7 @@ export class HeaderComponent implements OnInit, AfterViewInit{
   ngAfterViewInit(): void {
     this.onFocus()
     this.onBlur()
+    this.onUpdateOnlineCount()
   }
 
   limitCharacters(inputElem: HTMLSpanElement, input: string) {
@@ -64,6 +68,14 @@ export class HeaderComponent implements OnInit, AfterViewInit{
       }else{
         this.input.nativeElement.style.backgroundColor = "#2a3942"
       }
+    })
+  }
+
+  onUpdateOnlineCount(){
+    this.connectService.socket.on("onlineCount", (count: number) => {
+      console.log(count)
+      this.socketStatus = `Online: ${count}`
+      console.log(this.socketStatus)
     })
   }
 }

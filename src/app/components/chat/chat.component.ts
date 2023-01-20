@@ -13,6 +13,7 @@ export class ChatComponent implements OnInit,AfterViewInit{
   constructor(protected connectService: ConnectService, protected utilityService: UtilityService){}
 
   ngOnInit(){
+    this.connectService.connect()
     this.setInitialChatHeight()
     this.onResize()
   }
@@ -44,7 +45,7 @@ export class ChatComponent implements OnInit,AfterViewInit{
   }
 
   onResponse(){
-    this.connectService.socket.on("response", (input:string) => {
+    this.connectService.socket.on("response", (input: string) => {
       let chat = document.querySelector('.chat') as HTMLDivElement;
       this.connectService.appendText(chat, input, true)
     })

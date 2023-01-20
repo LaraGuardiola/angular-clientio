@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { io } from 'socket.io-client';
+import { io, Socket } from 'socket.io-client';
 import { UtilityService } from './utility.service';
 
 @Injectable({
@@ -10,11 +10,13 @@ export class ConnectService {
   socket = io('https://chatonymous-dev.onrender.com')
   // socket = io('http://localhost:3000')
   
-  constructor(protected utilityService: UtilityService) {
+  constructor(protected utilityService: UtilityService) {}
+
+  connect(){
     this.socket.on("connect", () => {
       console.log("Connected - SocketID:",this.socket.id)
     })
-   }
+  }
 
   write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, response: boolean){
     if(event.key === 'Enter') {
@@ -110,7 +112,7 @@ export class ConnectService {
   }
 
   setMarginBottom(chat: HTMLDivElement, height: number){
-    chat.style.height = `${height + 20}px` //extra height so in mobile doesn't look like shit
+    chat.style.height = `${height + 25}px` //extra height so in mobile doesn't look like shit
       console.log(screen.orientation)
       if(screen.orientation.type === "landscape-primary"){
         document.body.style.marginBottom = "75px"
