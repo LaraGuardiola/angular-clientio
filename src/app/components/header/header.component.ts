@@ -11,8 +11,7 @@ import { UtilityService } from 'src/app/services/utility.service';
 export class HeaderComponent implements OnInit, AfterViewInit{
   @Input() symbol: IconDefinition
   placeholderVal: string = "Write your name"
-  count!: number
-  socketStatus!: string
+  socketStatus: string = ""
   @ViewChild("input") input!: ElementRef
 
   constructor(protected connectService: ConnectService, protected utilityService: UtilityService){
@@ -73,9 +72,7 @@ export class HeaderComponent implements OnInit, AfterViewInit{
 
   onUpdateOnlineCount(){
     this.connectService.socket.on("onlineCount", (count: number) => {
-      console.log(count)
-      this.socketStatus = `Online: ${count}`
-      console.log(this.socketStatus)
+      this.socketStatus = `${count}`
     })
   }
 }
