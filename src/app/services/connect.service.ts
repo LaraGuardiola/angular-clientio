@@ -8,8 +8,8 @@ import { UtilityService } from './utility.service';
 })
 export class ConnectService {
 
-  // socket = io('https://chatonymous-dev.onrender.com')
-  socket = io('http://localhost:3000')
+  socket = io('https://chatonymous-dev.onrender.com')
+  // socket = io('http://localhost:3000')
   
   constructor(protected utilityService: UtilityService) {}
 
