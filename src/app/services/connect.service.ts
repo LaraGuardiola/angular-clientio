@@ -39,13 +39,13 @@ export class ConnectService {
   appendText(chat: HTMLDivElement, input: string, response: boolean){
     if(!input) return
 
-    let [bubble,paragraph,hour] =  this.utilityService.createBubble(chat,input)
+    let [bubble,paragraph,hour,name] =  this.utilityService.createBubble(chat,input)
 
-    this.setBubbleStyles(bubble as HTMLDivElement, paragraph as HTMLParagraphElement, hour, response)
+    this.setBubbleStyles(bubble as HTMLDivElement, paragraph as HTMLParagraphElement, hour, name as HTMLParagraphElement, response)
     this.chatResize(chat)
   }
 
-  setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){
+  setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLSpanElement, name: HTMLParagraphElement, response: boolean){
     bubble.style.display = "flex"
     bubble.style.position = "relative"
 
@@ -61,6 +61,7 @@ export class ConnectService {
 
     this.setParagraphStyle(paragraph)
     this.setHourStyles(paragraph, hour, response)
+    this.setNameStyles(name)
   }
 
   setParagraphStyle(paragraph: HTMLParagraphElement){
@@ -70,8 +71,7 @@ export class ConnectService {
     paragraph.style.marginBottom = "10px"
     paragraph.style.border = "2px solid white"
     paragraph.style.borderRadius = "10px"
-    paragraph.style.padding = "10px"
-    paragraph.style.paddingRight = "50px"
+    paragraph.style.padding = "25px 50px 10px 10px"
     paragraph.style.color = "white"
     paragraph.style.width= "fit-content"
     paragraph.style.height= "fit-content"
@@ -94,6 +94,13 @@ export class ConnectService {
     }
   }
 
+  setNameStyles(name: HTMLParagraphElement){
+    name.style.position = "absolute"
+    name.style.top = "5px"
+    name.style.fontSize = "12px"
+    name.style.fontWeight = "600" 
+  }
+
   chatResize(chat: HTMLDivElement){
     let bubbles = document.querySelectorAll(".chat > div")
     let height = 0
@@ -113,11 +120,11 @@ export class ConnectService {
 
   setMarginBottom(chat: HTMLDivElement, height: number){
     chat.style.height = `${height + 25}px` //extra height so in mobile doesn't look like shit
-      console.log(screen.orientation)
-      if(screen.orientation.type === "landscape-primary"){
+      console.log(window.screen.orientation)
+      if(window.screen.orientation.type === "landscape-primary"){
         document.body.style.marginBottom = "75px"
       }else{
-        document.body.style.marginBottom = "75px"
+        document.body.style.marginBottom = "65px"
       }
   }
 }

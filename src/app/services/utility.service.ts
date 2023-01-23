@@ -33,17 +33,21 @@ export class UtilityService {
 
   createBubble(chat: HTMLDivElement, input: string): HTMLElement[]{
     let bubble = document.createElement("div")
+    let name = document.createElement("p")
     let paragraph = document.createElement("p")
     let hour = document.createElement("span")
 
     let date = new Date();
+    name.innerText = "Crypto Bro"
     paragraph.innerText = input;
     hour.innerText = `${date.getHours().toString()}:${date.getMinutes().toString()}`
 
     chat.append(bubble)
+    // bubble.append(name)
     bubble.append(paragraph)
     paragraph.append(hour)
+    paragraph.append(name)
 
-    return [bubble,paragraph,hour]
+    return [bubble, paragraph, hour, name]
   }
 }

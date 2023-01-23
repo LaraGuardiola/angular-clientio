@@ -25,7 +25,7 @@ export class ChatComponent implements OnInit,AfterViewInit{
     (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.innerHeight - 130}px`
 
     //fix for mobile in case keyboard is open
-    if(screen.orientation.type === "portrait-primary"){
+    if(window.screen.orientation.type === "portrait-primary"){
       (document.querySelector('.chat') as HTMLDivElement).style.height = `${window.innerHeight - 90}px`
     }
   }

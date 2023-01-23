@@ -1,10 +1,9 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { ConnectService } from './services/connect.service';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
 export class AppComponent{
   
