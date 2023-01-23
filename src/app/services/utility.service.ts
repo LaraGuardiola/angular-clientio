@@ -38,8 +38,17 @@ export class UtilityService {
     let paragraph = document.createElement("p")
     let hour = document.createElement("p")
 
+    let nameSpan = document.querySelector('.name-input') as HTMLSpanElement
+    let chatSpan = document.querySelector('.chat-input') as HTMLSpanElement
+
     let date = new Date();
-    name.innerText = "Crypto Bro"
+    name.innerText = (nameSpan.innerText.length != 0) ? nameSpan.innerText : `Anon#${Math.floor(Math.random() * 1001)}`
+
+    if(nameSpan.innerText.length === 0){
+      this.inCaseNoWrittenName(nameSpan, chatSpan)
+    }
+    
+    nameSpan.innerText = name.innerText
     paragraph.innerText = input;
     hour.innerText = `${date.getHours().toString()}:${date.getMinutes().toString()}`
 
@@ -50,5 +59,15 @@ export class UtilityService {
     wrapper.append(hour)
 
     return [bubble, wrapper, paragraph, hour, name]
+  }
+
+  inCaseNoWrittenName(nameSpan: HTMLSpanElement, chatSpan: HTMLSpanElement){
+    nameSpan.focus()
+    setTimeout(() => {
+      nameSpan.dispatchEvent(new KeyboardEvent("keydown",{'key': 'Enter'}))
+    })
+    setTimeout(() => {
+      chatSpan.focus()
+    })
   }
 }

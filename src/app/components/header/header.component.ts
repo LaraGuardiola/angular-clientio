@@ -43,6 +43,7 @@ export class HeaderComponent implements OnInit, AfterViewInit{
   preventBreakLine(event: KeyboardEvent){
     if(event.key === 'Enter') {
       event.preventDefault();
+      this.input.nativeElement.blur()
     }
   }
 
