@@ -31,7 +31,7 @@ export class UtilityService {
     return document.querySelector('.chat') as HTMLDivElement
   }
 
-  createBubble(chat: HTMLDivElement, input: string): HTMLElement[]{
+  createBubble(chat: HTMLDivElement, input: string, nickname: string, response: boolean): HTMLElement[]{
     let wrapper = document.createElement("div")
     let bubble = document.createElement("div")
     let name = document.createElement("p")
@@ -42,13 +42,21 @@ export class UtilityService {
     let chatSpan = document.querySelector('.chat-input') as HTMLSpanElement
 
     let date = new Date();
-    name.innerText = (nameSpan.innerText.length != 0) ? nameSpan.innerText : `Anon#${Math.floor(Math.random() * 1001)}`
 
-    if(nameSpan.innerText.length === 0){
-      this.inCaseNoWrittenName(nameSpan, chatSpan)
+    //if client is sending a message, else getting a response
+    if(!response){
+      name.innerText = (nameSpan.innerText.length != 0) ? nameSpan.innerText : `Anon#${Math.floor(Math.random() * 1001)}`
+      if(nameSpan.innerText.length === 0){
+        this.inCaseNoWrittenName(nameSpan, chatSpan)
+      }
+    }else{
+      name.innerText = nickname
+    }
+
+    if(!response){
+      nameSpan.innerText = name.innerText
     }
     
-    nameSpan.innerText = name.innerText
     paragraph.innerText = input;
     hour.innerText = `${date.getHours().toString()}:${date.getMinutes().toString()}`
 

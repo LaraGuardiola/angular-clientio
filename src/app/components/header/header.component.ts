@@ -18,9 +18,7 @@ export class HeaderComponent implements OnInit, AfterViewInit{
     this.symbol = faIdCard
   }
 
-  ngOnInit(): void {
-    
-  }
+  ngOnInit(): void {}
 
   ngAfterViewInit(): void {
     this.onFocus()

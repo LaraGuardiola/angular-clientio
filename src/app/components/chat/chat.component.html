@@ -6,7 +6,7 @@
             (input)="connectService.onInput(input,input.innerText)"
             (focus)="utilityService.onFocus(placeholder)"
             (focusout)="utilityService.onFocusOut(placeholder,input,this.placeholderValue)"
-            (keydown)="connectService.write($event,chat,input,input.innerText, false)" 
+            (keydown)="connectService.write($event,chat,input,input.innerText,nameInput!.innerText, false)" 
             class="chat-input"
             role="textbox" 
             contenteditable>

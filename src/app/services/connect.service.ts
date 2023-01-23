@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
+import { Client } from '../components/chat/client.interface';
 import { UtilityService } from './utility.service';
 
 @Injectable({
@@ -7,8 +8,8 @@ import { UtilityService } from './utility.service';
 })
 export class ConnectService {
 
-  socket = io('https://chatonymous-dev.onrender.com')
-  // socket = io('http://localhost:3000')
+  // socket = io('https://chatonymous-dev.onrender.com')
+  socket = io('http://localhost:3000')
   
   constructor(protected utilityService: UtilityService) {}
 
@@ -18,12 +19,16 @@ export class ConnectService {
     })
   }
 
-  write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, response: boolean){
+  write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, name: string, response: boolean){
     if(event.key === 'Enter') {
       event.preventDefault();
-      this.socket.emit("message", input)
+      let client: Client = {
+        name: name,
+        arg: input
+      }
+      this.socket.emit("message", client)
       inputElem.textContent =""
-      this.appendText(chatElem, input, response)
+      this.appendText(chatElem, client, response)
     }
   }
 
@@ -36,12 +41,19 @@ export class ConnectService {
     }
   }
 
-  appendText(chat: HTMLDivElement, input: string, response: boolean){
-    if(!input) return
+  appendText(chat: HTMLDivElement, client: Client, response: boolean){
+    console.log(client)
+    if(!client.arg) return
 
-    let [bubble,wrapper,paragraph,hour,name] =  this.utilityService.createBubble(chat,input)
+    let [bubble,wrapper,paragraph,hour,name] =  this.utilityService.createBubble(chat,client.arg, client.name, response)
 
-    this.setBubbleStyles(bubble as HTMLDivElement, wrapper as HTMLDivElement, paragraph as HTMLParagraphElement, hour as HTMLParagraphElement, name as HTMLParagraphElement, response)
+    this.setBubbleStyles(
+      bubble as HTMLDivElement, 
+      wrapper as HTMLDivElement, 
+      paragraph as HTMLParagraphElement, 
+      hour as HTMLParagraphElement, 
+      name as HTMLParagraphElement, 
+      response)
     this.chatResize(chat)
   }
 
@@ -59,7 +71,6 @@ export class ConnectService {
       bubble.style.alignItems = "end"
       wrapper.style.backgroundColor = "#005C4B"
       wrapper.style.marginRight = "20px"
-      
     }else{
       bubble.style.alignItems = "start"
       wrapper.style.backgroundColor = "#2a3942"
@@ -77,7 +88,7 @@ export class ConnectService {
   }
 
   setParagraphStyle(paragraph: HTMLParagraphElement){
-    paragraph.style.padding = "5px 0px 5px 0px"
+    paragraph.style.padding = "5px 20px 5px 0px"
     paragraph.style.maxWidth= `${window.screen.width * 0.75}px`
   }
 
