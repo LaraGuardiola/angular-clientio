@@ -39,66 +39,51 @@ export class ConnectService {
   appendText(chat: HTMLDivElement, input: string, response: boolean){
     if(!input) return
 
-    let [bubble,paragraph,hour,name] =  this.utilityService.createBubble(chat,input)
+    let [bubble,wrapper,paragraph,hour,name] =  this.utilityService.createBubble(chat,input)
 
-    this.setBubbleStyles(bubble as HTMLDivElement, paragraph as HTMLParagraphElement, hour, name as HTMLParagraphElement, response)
+    this.setBubbleStyles(bubble as HTMLDivElement, wrapper as HTMLDivElement, paragraph as HTMLParagraphElement, hour as HTMLParagraphElement, name as HTMLParagraphElement, response)
     this.chatResize(chat)
   }
 
-  setBubbleStyles(bubble: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLSpanElement, name: HTMLParagraphElement, response: boolean){
+  setBubbleStyles(bubble: HTMLDivElement, wrapper: HTMLDivElement, paragraph: HTMLParagraphElement, hour: HTMLParagraphElement, name: HTMLParagraphElement, response: boolean){
     bubble.style.display = "flex"
-    bubble.style.position = "relative"
+    bubble.style.flexDirection = "column"
+    bubble.style.color = "white"
+    wrapper.style.padding = "5px 10px 5px 10px"
+    wrapper.style.border = "2px solid white"
+    wrapper.style.borderRadius = "10px"
+    wrapper.style.margin = "4px 0 4px 0"
 
     //setting style if message or response
     if(!response){
-      bubble.style.justifyContent = "flex-end"
-      paragraph.style.backgroundColor = "#005C4B"
+      bubble.style.alignItems = "end"
+      wrapper.style.backgroundColor = "#005C4B"
+      wrapper.style.marginRight = "20px"
       
     }else{
-      bubble.style.justifyContent = "flex-start"
-      paragraph.style.backgroundColor = "#2a3942"
+      bubble.style.alignItems = "start"
+      wrapper.style.backgroundColor = "#2a3942"
+      wrapper.style.marginLeft = "20px"
     }
 
-    this.setParagraphStyle(paragraph)
-    this.setHourStyles(paragraph, hour, response)
     this.setNameStyles(name)
-  }
-
-  setParagraphStyle(paragraph: HTMLParagraphElement){
-    //paragraph global styles
-    paragraph.style.marginLeft = "20px"
-    paragraph.style.marginRight = "20px"
-    paragraph.style.marginBottom = "10px"
-    paragraph.style.border = "2px solid white"
-    paragraph.style.borderRadius = "10px"
-    paragraph.style.padding = "25px 50px 10px 10px"
-    paragraph.style.color = "white"
-    paragraph.style.width= "fit-content"
-    paragraph.style.height= "fit-content"
-    paragraph.style.maxWidth= `${window.screen.width * 0.8}px`
-  }
-
-  setHourStyles(paragraph: HTMLParagraphElement, hour: HTMLSpanElement, response: boolean){
-    //hour style
-    hour.style.position = "absolute"
-    hour.style.bottom = "15px"
-    hour.style.fontSize = "12px"
-
-    //sets position of the hour span depending on response or message
-    if(!response){
-      hour.style.right = "30px"
-    }else{
-      hour.style.display = `block`
-      hour.style.textAlign = `end`
-      hour.style.width = `${paragraph.clientWidth - 20}px`
-    }
+    this.setParagraphStyle(paragraph)
+    this.setHourStyles(hour)
   }
 
   setNameStyles(name: HTMLParagraphElement){
-    name.style.position = "absolute"
-    name.style.top = "5px"
     name.style.fontSize = "12px"
     name.style.fontWeight = "600" 
+  }
+
+  setParagraphStyle(paragraph: HTMLParagraphElement){
+    paragraph.style.padding = "5px 0px 5px 0px"
+    paragraph.style.maxWidth= `${window.screen.width * 0.75}px`
+  }
+
+  setHourStyles(hour: HTMLSpanElement){
+    hour.style.fontSize = "12px"
+    hour.style.textAlign = "end"
   }
 
   chatResize(chat: HTMLDivElement){
