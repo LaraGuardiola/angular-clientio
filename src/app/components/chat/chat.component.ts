@@ -40,7 +40,7 @@ export class ChatComponent implements OnInit,AfterViewInit{
     window.addEventListener("change", this.setChatHeight)
   }
 
-  //second parameters is an arrow function calling another function in order to pass the value of this, otherwise chatHeight returns undefined
+  //second parameter is an arrow function calling another function in order to pass the value of this, otherwise chatHeight returns undefined
   onResize(){
     window.addEventListener("resize", () => this.setChatHeight())
   }
