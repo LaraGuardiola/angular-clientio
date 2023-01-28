@@ -10,6 +10,7 @@ export class ConnectService {
 
   socket = io('https://chatonymous-dev.onrender.com')
   // socket = io('http://localhost:3000')
+  // socket = io('http://192.168.1.39:3000/')
   
   constructor(protected utilityService: UtilityService) {}
 
@@ -22,7 +23,7 @@ export class ConnectService {
   write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, name: string, response: boolean){
     if(event.key === 'Enter') {
       event.preventDefault();
-      
+
       const client: Client = {
         name: name.length != 0 ? name : `Anon#${Math.floor(Math.random() * 1001)}`,
         arg: input
