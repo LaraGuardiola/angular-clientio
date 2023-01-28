@@ -10,7 +10,8 @@ import { Client } from './client.interface'
 })
 export class ChatComponent implements OnInit,AfterViewInit{
   placeholderValue: string = "Write your message here..."
-  nameInput: HTMLSpanElement | undefined
+  nameInput!: HTMLSpanElement
+  popAudio: HTMLAudioElement = new Audio()
 
   constructor(protected connectService: ConnectService, protected utilityService: UtilityService){}
 
@@ -20,7 +21,7 @@ export class ChatComponent implements OnInit,AfterViewInit{
     this.onResize()
   }
   
-  ngAfterViewInit(): void {
+  ngAfterViewInit(){
     this.nameInput = document.querySelector('.name-input') as HTMLSpanElement
     this.onResponse()
   }
@@ -50,8 +51,16 @@ export class ChatComponent implements OnInit,AfterViewInit{
 
   onResponse(){
     this.connectService.socket.on("response", (client: Client) => {
-      let chat = document.querySelector('.chat') as HTMLDivElement;
-      this.connectService.appendText(chat, client, true)
+      let chat = document.querySelector('.chat') as HTMLDivElement
+      this.connectService.appendText(chat, client, true);
+      this.onResponseAudio(client)
     })
+  }
+
+  onResponseAudio(client: Client){
+    (client.name === "God") 
+        ? this.popAudio.src = '../../assets/sneeze.wav'
+        : this.popAudio.src = '../../assets/pop.mp3'
+    this.popAudio.play()
   }
 }

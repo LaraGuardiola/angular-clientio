@@ -45,7 +45,7 @@ export class UtilityService {
 
     //if client is sending a message, else getting a response
     if(!response){
-      name.innerText = (nameSpan.innerText.length != 0) ? nameSpan.innerText : `Anon#${Math.floor(Math.random() * 1001)}`
+      name.innerText = nickname
       if(nameSpan.innerText.length === 0){
         this.inCaseNoWrittenName(nameSpan, chatSpan)
       }
@@ -71,6 +71,7 @@ export class UtilityService {
 
   inCaseNoWrittenName(nameSpan: HTMLSpanElement, chatSpan: HTMLSpanElement){
     nameSpan.focus()
+    //need to figure out why it has to be wrapped inside a setTimeout
     setTimeout(() => {
       nameSpan.dispatchEvent(new KeyboardEvent("keydown",{'key': 'Enter'}))
     })
