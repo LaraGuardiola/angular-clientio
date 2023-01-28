@@ -22,10 +22,12 @@ export class ConnectService {
   write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, name: string, response: boolean){
     if(event.key === 'Enter') {
       event.preventDefault();
-      let client: Client = {
-        name: name,
+      
+      const client: Client = {
+        name: name.length != 0 ? name : `Anon#${Math.floor(Math.random() * 1001)}`,
         arg: input
       }
+
       this.socket.emit("message", client)
       inputElem.textContent =""
       this.appendText(chatElem, client, response)
@@ -42,7 +44,6 @@ export class ConnectService {
   }
 
   appendText(chat: HTMLDivElement, client: Client, response: boolean){
-    console.log(client)
     if(!client.arg) return
 
     let [bubble,wrapper,paragraph,hour,name] =  this.utilityService.createBubble(chat,client.arg, client.name, response)
@@ -116,11 +117,10 @@ export class ConnectService {
 
   setMarginBottom(chat: HTMLDivElement, height: number){
     chat.style.height = `${height + 25}px` //extra height so in mobile doesn't look like shit
-      console.log(window.screen.orientation)
-      if(window.screen.orientation.type === "landscape-primary"){
-        document.body.style.marginBottom = "75px"
-      }else{
-        document.body.style.marginBottom = "65px"
-      }
+    if(window.screen.orientation.type === "landscape-primary"){
+      document.body.style.marginBottom = "75px"
+    }else{
+      document.body.style.marginBottom = "65px"
+    }
   }
 }
