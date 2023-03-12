@@ -18,11 +18,12 @@ export class ChatComponent implements OnInit,AfterViewInit{
   ngOnInit(){
     this.connectService.connect()
     this.setInitialChatHeight()
-    this.onResize()
+    this.onChange()
   }
   
   ngAfterViewInit(){
     this.nameInput = document.querySelector('.name-input') as HTMLSpanElement
+    this.onResize()
     this.onResponse()
   }
 
@@ -35,8 +36,13 @@ export class ChatComponent implements OnInit,AfterViewInit{
     }
   }
 
-  onResize(){
+  onChange(){
     window.addEventListener("change", this.setChatHeight)
+  }
+
+  //second parameter is an arrow function calling another function in order to pass the value of this, otherwise chatHeight returns undefined
+  onResize(){
+    window.addEventListener("resize", () => this.setChatHeight())
   }
 
   setChatHeight(){
@@ -61,6 +67,7 @@ export class ChatComponent implements OnInit,AfterViewInit{
     (client.name === "God") 
         ? this.popAudio.src = '../../assets/sneeze.wav'
         : this.popAudio.src = '../../assets/pop.mp3'
-    this.popAudio.play()
+    //there is a chance the user receives a response without interacting first, by default if it hasn't interact, it can't receive the audio notification
+    this.popAudio.play().catch(err => console.warn(err))
   }
 }

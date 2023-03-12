@@ -22,7 +22,6 @@ export class ConnectService {
   write(event: KeyboardEvent | TouchEvent | any, chatElem: HTMLDivElement, inputElem: HTMLSpanElement, input: string, name: string, response: boolean){
     if(event.key === 'Enter') {
       event.preventDefault();
-      
       const client: Client = {
         name: name.length != 0 ? name : `Anon#${Math.floor(Math.random() * 1001)}`,
         arg: input
