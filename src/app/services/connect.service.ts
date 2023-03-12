@@ -10,7 +10,6 @@ export class ConnectService {
 
   socket = io('https://chatonymous.onrender.com')
   // socket = io('http://localhost:3000')
-  // socket = io('http://192.168.1.39:3000/')
   
   constructor(protected utilityService: UtilityService) {}
 
